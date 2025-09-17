@@ -63,19 +63,21 @@ To understand the impact of disruptions after 2019 (including COVID-19 and relat
 
 The basic DiD specification is:
 
-\[
-Y_{it} = \alpha + \beta \cdot \text{Treat}_i + \gamma \cdot \text{Post}_t + \delta \cdot (\text{Treat}_i \times \text{Post}_t) + \mu_i + \lambda_t + \varepsilon_{it}
-\]
+### Difference-in-Differences Model
+
+We estimate the following specification:
+
+    Y_it = α + β * Treat_i + γ * Post_t + δ * (Treat_i × Post_t) + μ_i + λ_t + ε_it
 
 Where:
 
-- \(Y_{it}\): SNAP timeliness rate for state \(i\) in year \(t\).  
-- \(\text{Treat}_i\): Indicator for whether state \(i\) belongs to the treatment group.  
-- \(\text{Post}_t\): Indicator for the post-period (2020–2023).  
-- \(\text{Treat}_i \times \text{Post}_t\): Interaction term; the DiD effect of interest.  
-- \(\mu_i\): State fixed effects (absorbing all time-invariant differences between states).  
-- \(\lambda_t\): Year fixed effects (capturing national shocks common to all states).  
-- \(\delta\): DiD estimator — the additional effect on treated states post-2019, relative to control states.  
+- Y_it : SNAP timeliness rate for state *i* in year *t*  
+- Treat_i : Indicator if state *i* is in the treatment group  
+- Post_t : Indicator for post-period (2020–2023)  
+- Treat_i × Post_t : Interaction term; the DiD effect of interest  
+- μ_i : State fixed effects (time-invariant differences across states)  
+- λ_t : Year fixed effects (national shocks common to all states)  
+- δ : The DiD estimator — the extra impact on treated states after 2019
 
 ### Treatment and Control Groups
 
