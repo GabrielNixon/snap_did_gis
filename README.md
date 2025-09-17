@@ -88,7 +88,7 @@ This setup allows us to compare whether the drop in timeliness in treatment stat
 
 ### Results
 
-- **DiD estimate (\(\delta\))**: -18.9 percentage points.  
+- **DiD estimate**: -18.9 percentage points.  
 - **Standard error:** 1.71.  
 - **t-value:** -11.08.  
 - **p-value:** < 0.001.  
