@@ -57,18 +57,61 @@ These maps highlight not only overall declines but also strong spatial heterogen
 
 ## Difference-in-Differences (DiD) Analysis
 
-To quantify the impact of post-2019 disruptions, we conducted a **DiD regression**:
+To understand the impact of disruptions after 2019 (including COVID-19 and related administrative changes) on SNAP application timeliness, we applied a **Difference-in-Differences (DiD)** approach.
 
-- **Treatment group**: States with large drops in timeliness after 2019.  
-- **Control group**: States with relatively stable performance.  
-- **Post period**: 2020–2023.  
-- **Fixed effects**: State and year.  
+### Methodology
 
-### Regression Results
-- **DiD coefficient (treat × post): -18.9 percentage points**  
-  - Treatment states processed SNAP applications ~19% fewer on time after 2019, relative to controls.  
-- **Statistical significance**: ***p < 0.001***.  
-- **Model fit**: Adj. R² ~ 0.44; RMSE ~ 6.0.  
+The basic DiD specification is:
 
-### Interpretation
-The analysis confirms a **large, statistically significant decline** in timeliness post-2019 for the treatment states. The divergence between treated and control states aligns with both the **GIS maps** and **EDA findings**, reinforcing the evidence of administrative strain in the SNAP system post-COVID.
+\[
+Y_{it} = \alpha + \beta \cdot \text{Treat}_i + \gamma \cdot \text{Post}_t + \delta \cdot (\text{Treat}_i \times \text{Post}_t) + \mu_i + \lambda_t + \varepsilon_{it}
+\]
+
+Where:
+
+- \(Y_{it}\): SNAP timeliness rate for state \(i\) in year \(t\).  
+- \(\text{Treat}_i\): Indicator for whether state \(i\) belongs to the treatment group.  
+- \(\text{Post}_t\): Indicator for the post-period (2020–2023).  
+- \(\text{Treat}_i \times \text{Post}_t\): Interaction term; the DiD effect of interest.  
+- \(\mu_i\): State fixed effects (absorbing all time-invariant differences between states).  
+- \(\lambda_t\): Year fixed effects (capturing national shocks common to all states).  
+- \(\delta\): DiD estimator — the additional effect on treated states post-2019, relative to control states.  
+
+### Treatment and Control Groups
+
+- **Treatment group:** States that experienced *large declines in timeliness* after 2019 (e.g., Alaska, New York, Florida).  
+- **Control group:** States that remained relatively stable or only had mild declines (e.g., Iowa, Minnesota).  
+
+This setup allows us to compare whether the drop in timeliness in treatment states exceeded what would have been expected based on overall national trends.
+
+### Results
+
+- **DiD estimate (\(\delta\))**: -18.9 percentage points.  
+- **Standard error:** 1.71.  
+- **t-value:** -11.08.  
+- **p-value:** < 0.001.  
+
+**Interpretation:**  
+After 2019, states in the treatment group processed **~19% fewer applications on time** compared to what would be expected if they had followed the same trajectory as control states.  
+
+This result is statistically significant and robust to fixed effects.
+
+### Why this makes sense
+
+- SNAP timeliness was stable and highly correlated across states before 2019.  
+- Post-2019, some states show **dramatic collapses** (e.g., Alaska dropping below 40%).  
+- A simple before–after comparison would confound national shocks (like COVID).  
+- DiD isolates the **extra effect on badly hit states** relative to those that were more resilient.
+
+### Limitations
+
+- **Parallel trends assumption:** DiD requires that treatment and control states would have followed parallel trends absent the shock. Visual inspection suggests this holds pre-2019, but it cannot be tested directly.  
+- **Treatment definition:** We defined treatment as “large post-2019 declines.” This is data-driven and not based on an exogenous policy assignment.  
+- **Unobserved heterogeneity:** Other state-level factors (e.g., staffing, policy changes, IT systems) may contribute to differential declines.  
+- **Time horizon:** With only two post-period years (2022–2023), long-term recovery effects cannot yet be evaluated.
+
+---
+
+**Conclusion:**  
+The DiD analysis strengthens the EDA and GIS findings: **post-2019 disruptions caused severe, uneven declines in SNAP timeliness.** Treated states diverged significantly from controls, with ~19 percentage points larger drops on average. While the treatment assignment is observational, the consistency of results across regression, maps, and descriptive stats gives strong evidence of structural strain in SNAP administration after 2019.
+
