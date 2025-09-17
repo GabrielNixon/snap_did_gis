@@ -27,50 +27,50 @@ The CSV is stored under `outputs/tables/` and can be loaded directly into R, Pyt
 
 ---
 
-# Exploratory Data Analysis (EDA)
+## Exploratory Data Analysis (EDA)
 
-This section explores trends, distributions, and correlations in SNAP application timeliness across states from **2012–2023**.  
+We explored trends, distributions, and cross-year relationships in SNAP timeliness:
 
-## Summary Statistics  
+- **Line trends**: Selected states (e.g., California, Florida, New York, Texas) show sharp declines post-2019.  
+- **Boxplots**: Median timeliness remained high (~90%) until 2019, with widening spread in 2022–2023.  
+- **Histograms**: Early years cluster near 85–95%, while 2022–2023 show heavier tails and more low-performing states.  
+- **Correlations**: Pre-2019 years are strongly correlated with each other (>0.6), while 2022–2023 correlations with pre-periods are much weaker, suggesting a structural shift.
 
-The table below summarizes mean, minimum, maximum, and variability of timeliness rates across states for each year:  
+---
 
-| Year | Mean Rate | Min Rate | Max Rate | Std. Dev. |
-|------|-----------|----------|----------|-----------|
-| 2012 | 86.7 | 56.7 | 99.3 | 9.13 |
-| 2013 | 87.7 | 57.4 | 99.0 | 8.48 |
-| 2014 | 86.9 | 63.4 | 99.6 | 8.01 |
-| 2015 | 90.1 | 73.5 | 99.1 | 5.91 |
-| 2016 | 91.4 | 71.9 | 98.6 | 4.84 |
-| 2017 | 92.4 | 81.1 | 99.7 | 4.60 |
-| 2018 | 91.4 | 69.6 | 99.2 | 5.84 |
-| 2019 | 91.9 | 75.8 | 99.7 | 4.96 |
-| 2022 | 85.6 | 42.9 | 100.0 | 10.02 |
-| 2023 | 82.3 | 39.0 | 98.2 | 12.89 |
+## Geographic Information System (GIS) Analysis
 
-**Key observations:**  
-- From 2012–2019, mean timeliness rose steadily, peaking above 92%.  
-- Variability narrowed during these years, reflecting consistent performance across states.  
-- In 2022–2023, mean timeliness declined, and variability widened, showing large disparities.  
+We mapped state-level timeliness rates to visualize geographic patterns:
 
-## State Trends  
+- **Heatmaps by Year**:  
+  - 2012: Most states in the 85–95% range.  
+  - 2019: Broad improvements, especially in the South and West.  
+  - 2023: Large geographic disparities, with states like Alaska and Florida experiencing sharp declines.  
 
-Selected states (California, Florida, New York, Texas) show similar pre-2019 stability, followed by sharp declines in 2022–2023.  
+- **Change Maps (2019 → 2023)**:  
+  - Nearly all states show **declines**, with especially steep drops in Alaska, New York, and several Southeastern states.  
+  - A few states maintained or slightly improved timeliness, visible as light green.
 
-## Yearly Variation  
+These maps highlight not only overall declines but also strong spatial heterogeneity in administrative performance.
 
-Boxplots show compressed distributions during 2015–2019, with post-COVID years marked by lower medians and wider spreads.  
+---
 
-## Distributional Shifts  
+## Difference-in-Differences (DiD) Analysis
 
-Histograms indicate most states clustered near 90–95% pre-2019, but distributions spread out post-COVID, with some states dropping below 50%.  
+To quantify the impact of post-2019 disruptions, we conducted a **DiD regression**:
 
-## Correlation Patterns  
+- **Treatment group**: States with large drops in timeliness after 2019.  
+- **Control group**: States with relatively stable performance.  
+- **Post period**: 2020–2023.  
+- **Fixed effects**: State and year.  
 
-Strong positive correlations exist between adjacent pre-2019 years (e.g., 2016–2017). Post-COVID years (2022–2023) break this pattern, showing weaker or even negative correlations with earlier years.  
+### Regression Results
+- **DiD coefficient (treat × post): -18.9 percentage points**  
+  - Treatment states processed SNAP applications ~19% fewer on time after 2019, relative to controls.  
+- **Statistical significance**: ***p < 0.001***.  
+- **Model fit**: Adj. R² ~ 0.44; RMSE ~ 6.0.  
 
-## Insights  
+### Interpretation
+The analysis confirms a **large, statistically significant decline** in timeliness post-2019 for the treatment states. The divergence between treated and control states aligns with both the **GIS maps** and **EDA findings**, reinforcing the evidence of administrative strain in the SNAP system post-COVID.
+## Repository Structure
 
-- **High performance plateau (2015–2019):** Most states consistently exceeded 90%.  
-- **COVID-era disruption (2022–2023):** Mean timeliness dropped and variability widened.  
-- **Unequal resilience:** Some states maintained high rates, while others fell drastically, exposing administrative disparities.  
