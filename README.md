@@ -72,5 +72,3 @@ To quantify the impact of post-2019 disruptions, we conducted a **DiD regression
 
 ### Interpretation
 The analysis confirms a **large, statistically significant decline** in timeliness post-2019 for the treatment states. The divergence between treated and control states aligns with both the **GIS maps** and **EDA findings**, reinforcing the evidence of administrative strain in the SNAP system post-COVID.
-## Repository Structure
-
